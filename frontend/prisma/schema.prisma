@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+
+// Pull Appelation or Grape, producer, and vintage
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Wine {
+  id Int @id @default(autoincrement())
+
+  wineType String // white red sparkling
+
+  varietal String
+  classification String?   //Either appelation or name
+
+  producer String
+
+  wineName String?
+
+  vintage String
+
+  region String
+
+  classification String?
+
+  price Int
+
+  grapes       WineGrape[]   // relation to join table
+
+}
+
+
+// Table of grapes
+model Grape {
+  id     Int        @id @default(autoincrement())
+  name   String     @unique
+
+  wines  WineGrape[]
+}
+
+// Join table to handle blends
+model WineGrape {
+  id       Int     @id @default(autoincrement())
+  wine     Wine    @relation(fields: [wineId], references: [id])
+  wineId   Int
+  grape    Grape   @relation(fields: [grapeId], references: [id])
+  grapeId  Int
+  percent  Float?  // optional, % of grape in blend
+}
