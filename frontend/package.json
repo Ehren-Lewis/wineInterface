@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "dotenv": "^17.2.2",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
@@ -21,5 +22,8 @@
     "eslint-config-next": "15.5.4",
     "prisma": "^6.16.2",
     "tailwindcss": "^4"
-  }
+  },
+  "prisma": {
+  "seed": "node prisma/seed.js"
+}
 }
